@@ -8,6 +8,7 @@
     padding: 10px;
     font-weight: bold;
     cursor: pointer;
+    color: var(--mbg);
 }
 
 .menuButton,

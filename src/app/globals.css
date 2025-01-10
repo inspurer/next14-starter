@@ -4,6 +4,8 @@
     --text: white;
     --textSoft: #e5e5e5;
     --btn: #3673fd;
+
+    --mbg: rebeccapurple;
 }
 
 * {
@@ -13,7 +15,7 @@
 }
 
 body {
-    background-color: var(--bg);
+    background-color: var(--mbg);
     color: var(--text);
 
 }
@@ -24,7 +26,7 @@ a {
 }
 
 .container {
-    background-color: rebeccapurple;
+    background-color: var(--mbg);
     width: 1308px;
     margin: auto;
     min-height: 100vh;

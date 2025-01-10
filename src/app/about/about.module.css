@@ -1,6 +1,70 @@
-.imageContainer{
+.imageContainer {
     background-color: rebeccapurple;
     position: relative;
     width: 100%;
     height: 500px;
+}
+
+.container {
+    display: flex;
+}
+
+.subtitle {
+    color: var(--btn);
+}
+
+.title {
+    font-size: 36px;
+}
+
+.desc {
+    font-weight: 300;
+    font-size: 20px;
+}
+
+.textContainer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.boxes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.box h1 {
+    color: var(--btn);
+}
+
+
+.imgContainer {
+    position: relative;
+    flex: 1
+}
+
+.img {
+    object-fit: contain;
+}
+
+@media screen and (max-width: 768px){
+    .container{
+        flex-direction: column;
+        text-align: center;
+
+    }
+
+    .boxes{
+        flex-direction: column;
+        gap: 36px;
+    }
+    
 }
