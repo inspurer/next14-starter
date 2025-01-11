@@ -1,5 +1,11 @@
 import styles from "./contact.module.css"
 import Image from "next/image"
+
+export const metadata = {
+    title: "Contact BuyiXiao",
+    description: "Contact BuyiXiao, who is a famous Chart Plotter"
+}
+
 const ContactPage = () => {
     return (
         <div className={styles.container}>
