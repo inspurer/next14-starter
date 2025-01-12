@@ -5,7 +5,7 @@ import { connectToDb } from "./utils"
 import { User } from "./models"
 import bcrypt from "bcryptjs"
 
-import {authConfig} from './auth.config'
+import { authConfig } from './auth.config'
 
 const login = async (credentials) => {
     try {
@@ -49,14 +49,14 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
     ],
     callbacks: {
         async signIn({ user, account, profile }) {
-            console.log(user, account, profile)
+            console.log('signIn', user, account, profile)
             if (account.provider === 'github') {
                 connectToDb()
 
                 try {
-                    const user = await User.findOne({ email: profile.email })
+                    const oldUser = await User.findOne({ email: profile.email })
 
-                    if (!user) {
+                    if (!oldUser) {
                         const newUser = new User({
                             username: profile.login,
                             email: profile.email,
@@ -71,7 +71,7 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                 }
             }
             return true
-        }
+        },
+        ...authConfig.callbacks,
     },
-    ...authConfig.callbacks
 })

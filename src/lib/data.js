@@ -59,6 +59,8 @@ export const geUsers = async () => {
 
 
 export const getUser = async (id) => {
+    noStore();
+
     try {
         connectToDb()
         const user = await User.findById(id);

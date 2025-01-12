@@ -29,12 +29,14 @@ const links = [
 
 const Links = ({session}) => {
 
+    // console.log('session user ', session)
+
 
     const [open, setOpen] = useState(false);
 
 
     // const session = true;
-    const isAdmin = true;
+    // const isAdmin = true;
 
     return (
         <div className={styles.container}>
