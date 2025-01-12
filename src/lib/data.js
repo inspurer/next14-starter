@@ -45,7 +45,7 @@ export const getPost = async (slug) => {
     }
 }
 
-export const geUsers = async () => {
+export const getUsers = async () => {
     try {
         connectToDb()
         const users = await User.find();
