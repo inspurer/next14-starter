@@ -20,6 +20,8 @@ const PostUser = async ({ userId }) => {
 
     const user = await getUser(userId);
 
+    console.log(`post ${userId} user ${user}`)
+
     return <div className={styles.container}>
 
         <Image src={user.img ? user.img : '/noavatar.png'} alt="post detail image" className={styles.avatar} width={50} height={50}></Image>
