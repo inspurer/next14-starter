@@ -40,6 +40,7 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
             async authorize(credentials) {
                 try {
                     const user = await login(credentials);
+                    // console.log('credentials', credentials)
                     return user;
                 } catch (err) {
                     return null;
@@ -56,6 +57,9 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                 try {
                     const oldUser = await User.findOne({ email: profile.email })
 
+                    user.id = oldUser.id
+                    user.isAdmin = oldUser.isAdmin
+
                     if (!oldUser) {
                         const newUser = new User({
                             username: profile.login,
@@ -63,12 +67,18 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                             img: profile.avatar_url
                         })
 
+                        user.id = newUser.id
+                        user.isAdmin = false
+
                         await newUser.save()
                     }
                 } catch (err) {
                     console.log(err);
                     return false;
                 }
+            }else if(account.provider === 'credentials'){
+                user.id = user._doc.id
+                user.isAdmin = user._doc.isAdmin
             }
             return true
         },

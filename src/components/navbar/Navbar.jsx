@@ -7,7 +7,7 @@ const Navbar = async () => {
 
     const session = await auth();
 
-    console.log(session)
+    console.log('session in nav', session)
 
     return (
         <div className={styles.container}>

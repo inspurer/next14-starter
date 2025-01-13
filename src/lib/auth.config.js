@@ -9,7 +9,7 @@ export const authConfig = {
             console.log('jwt call', user,  account)
             if (user) {
                 token.id = user.id;
-                token.isAdmin = user._doc.isAdmin;
+                token.isAdmin = user.isAdmin;
             }
             return token;
         },
