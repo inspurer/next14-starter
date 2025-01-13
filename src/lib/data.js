@@ -30,6 +30,29 @@ export const getPosts = async () => {
     }
 }
 
+export const getPagenPosts = async (page = 1) => {
+    try {
+        connectToDb();
+        const limit = 3;
+        page = parseInt(page)
+        const skip = (page - 1) * limit;
+
+        const totalPost = await Post.countDocuments();
+        const totalPage = Math.ceil(totalPost / limit);
+
+        const posts = await Post.find().skip(skip).limit(limit).lean();
+
+        return {
+            posts: posts,
+            totalPage: totalPage,
+            currentPage: page
+        };
+    } catch (err) {
+        console.log(err);
+        throw new Error("Failed to fetch all posts");
+    }
+}
+
 export const getPost = async (slug) => {
     noStore();
 
