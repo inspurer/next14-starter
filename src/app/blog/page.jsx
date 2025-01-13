@@ -51,7 +51,7 @@ const BlogPage = async ({ params, searchParams }) => {
     const { posts, totalPage, currentPage } = await getPagenPosts(page);
 
 
-    return (
+    return (<>
         <div className={styles.container}>
 
             {posts.map((post) => (
@@ -60,11 +60,10 @@ const BlogPage = async ({ params, searchParams }) => {
                 </div>
             ))}
 
-
-            <Pagination totalPages={totalPage} currPage={currentPage} />
-
-
         </div>
+
+        <Pagination totalPages={totalPage} currPage={currentPage} />
+    </>
     )
 }
 

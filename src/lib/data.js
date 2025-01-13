@@ -34,11 +34,17 @@ export const getPagenPosts = async (page = 1) => {
     try {
         connectToDb();
         const limit = 3;
-        page = parseInt(page)
-        const skip = (page - 1) * limit;
 
         const totalPost = await Post.countDocuments();
         const totalPage = Math.ceil(totalPost / limit);
+
+        page = parseInt(page)
+        page = Math.min(page, totalPage)
+        page = Math.max(page, 1)
+
+        const skip = (page - 1) * limit;
+
+  
 
         const posts = await Post.find().skip(skip).limit(limit).lean();
 
