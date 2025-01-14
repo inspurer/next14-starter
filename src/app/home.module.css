@@ -24,12 +24,23 @@
     gap: 20px;
 }
 
-.button:first-child {
+
+/* .button:first-child {
     background-color: var(--btn);
+    text-align: center;
     color: var(--text);
 }
 
+.button:last-child {
+    background-color: var(--btn);
+    text-align: center;
+    color: var(--text);
+} */
+
 .button {
+    background-color: var(--btn);
+    text-align: center;
+    color: var(--text);
     padding: 20px;
     min-width: 120px;
     cursor: pointer;

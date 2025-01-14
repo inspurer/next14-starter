@@ -17,6 +17,9 @@
     "npm": "^10.9.2",
     "react": "^18",
     "react-dom": "^18",
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^4.2.1",
+    "leaflet-defaulticon-compatibility": "^0.1.2",
     "undici": "^5.28.4"
   },
   "devDependencies": {

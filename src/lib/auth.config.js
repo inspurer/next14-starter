@@ -25,6 +25,7 @@ export const authConfig = {
             const user = auth?.user;
             const isOnAdminPanel = request.nextUrl?.pathname.startsWith("/admin");
             const isOnBlogPage = request.nextUrl?.pathname.startsWith("/blog");
+            const isOnNearbyPage = request.nextUrl?.pathname.startsWith('/nearby');
             const isOnLoginPage = request.nextUrl?.pathname.startsWith("/login");
 
             // ONLY ADMIN CAN REACH THE ADMIN DASHBOARD
@@ -33,9 +34,14 @@ export const authConfig = {
                 return false;
             }
 
-            // ONLY AUTHENTICATED USERS CAN REACH THE BLOG PAGE
+            // ONLY AUTHENTICATED USERS CAN REACH THE BLOG PAGE And Nearby Page
 
             if (isOnBlogPage && !user) {
+                return false;
+            }
+
+            
+            if (isOnNearbyPage && !user) {
                 return false;
             }
 

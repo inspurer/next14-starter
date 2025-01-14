@@ -18,6 +18,10 @@ const links = [
         path: "/about",
     },
     {
+        title: "Find Nearby",
+        path: "/nearby",
+    },
+    {
         title: "Contact",
         path: "/contact",
     },
