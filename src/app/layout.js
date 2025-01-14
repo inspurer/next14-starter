@@ -5,6 +5,14 @@ import Footer from '@/components/footer/Footer';
 
 const inter = Inter({ subsets: ['latin'] })
 
+import { ProxyAgent, setGlobalDispatcher } from "undici";
+
+if (process.env.http_proxy) {
+  const dispatcher = new ProxyAgent({ uri: new URL(process.env.http_proxy).toString() });
+  setGlobalDispatcher(dispatcher);
+}
+
+
 export const metadata = {
   title: {
     default: "Next App HomePage",

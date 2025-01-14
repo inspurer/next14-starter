@@ -125,6 +125,11 @@ export const handleGithubLogin = async () => {
     await signIn("github");
 };
 
+export const handleGoogleLogin = async () => {
+    "use server";
+    await signIn("google");
+};
+
 export const handleLogout = async () => {
     "use server";
     await signOut("github");

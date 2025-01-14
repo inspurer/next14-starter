@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import GitHub from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDb } from "./utils"
 import { User } from "./models"
@@ -36,6 +37,11 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
             clientSecret: process.env.GITHUB_SECRET,
         }),
 
+        Google({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET,
+        }),
+
         CredentialsProvider({
             async authorize(credentials) {
                 try {
@@ -57,9 +63,6 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                 try {
                     const oldUser = await User.findOne({ email: profile.email })
 
-                    user.id = oldUser.id
-                    user.isAdmin = oldUser.isAdmin
-
                     if (!oldUser) {
                         const newUser = new User({
                             username: profile.login,
@@ -71,12 +74,41 @@ export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
                         user.isAdmin = false
 
                         await newUser.save()
+                    } else {
+                        user.id = oldUser.id
+                        user.isAdmin = oldUser.isAdmin
                     }
                 } catch (err) {
                     console.log(err);
                     return false;
                 }
-            }else if(account.provider === 'credentials'){
+            } else if (account.provider == 'google') {
+                connectToDb()
+
+                try {
+                    const oldUser = await User.findOne({ email: profile.email })
+
+                    if (!oldUser) {
+                        const newUser = new User({
+                            username: profile.name,
+                            email: profile.email,
+                            img: profile.picture
+                        })
+
+                        user.id = newUser.id
+                        user.isAdmin = false
+
+                        await newUser.save()
+                    }else{
+                        user.id = oldUser.id
+                        user.isAdmin = oldUser.isAdmin
+                    }
+                } catch (err) {
+                    console.log(err);
+                    return false;
+                }
+
+            } else if (account.provider === 'credentials') {
                 user.id = user._doc.id
                 user.isAdmin = user._doc.isAdmin
             }
