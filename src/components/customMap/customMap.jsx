@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useRef } from 'react';
 import styles from "./customMap.module.css"
 
 import "leaflet/dist/leaflet.css";
@@ -29,6 +29,23 @@ const CustomMap = async () => {
     const [error, setError] = useState(null);
 
     const [resJson, setResJson] = useState(null)
+
+    const centerMarkerRef = useRef(null);
+
+    useEffect(() => {
+        // 设置延时
+        const timer = setTimeout(() => {
+            // 3 秒后执行的代码
+            if (centerMarkerRef.current !== null && !centerMarkerRef.current.isPopupOpen()) {
+                // @ts-ignore
+                console.log('do open')
+                centerMarkerRef.current.openPopup();
+            }
+        }, 1500);
+
+        // 清理定时器
+        return () => clearTimeout(timer);
+    }, [centerMarkerRef]);
 
     const fetchPois = async (center_lng, center_lat) => {
         try {
@@ -70,9 +87,10 @@ const CustomMap = async () => {
                     </div>
                     {
                         resJson &&
-                        <div className={styles.mapContainer} key={new Date().getTime()} >
+                        <div className={styles.mapContainer}  >
                             <Suspense fallback={<div>Loading...</div>}>
                                 <MapContainer
+                                    key={new Date().getTime()}
                                     preferCanvas={true}
                                     center={[resJson.lat, resJson.lng]}
                                     zoom={resJson.zoom}
@@ -85,7 +103,7 @@ const CustomMap = async () => {
                                     />
 
                                     <Marker key={resJson.items.length} position={[resJson.lat, resJson.lng]}
-                                        icon={centerIcon}>
+                                        icon={centerIcon} ref={centerMarkerRef}>
                                         <Popup>
                                             Where you are
                                         </Popup>
@@ -104,6 +122,7 @@ const CustomMap = async () => {
                                     {resJson.items.map((item, index) => (
                                         <Polyline positions={[[resJson.lat, resJson.lng], [item.lat, item.lng]]} color="blue"
                                             weight={5}
+                                            key={index}
                                             opacity={0.7}
                                             dashArray="10,10" />
                                     ))}
