@@ -1,8 +1,13 @@
 "use server"
 
-export const getNearPois = async (lng, lat) => {
+import { unstable_noStore as noStore } from "next/cache";
+
+
+export const getNearPois = async (lng, lat, ipLocation) => {
+    noStore()
+    
     try {
-        const response = await fetch(`http://127.0.0.1:5000/gis/nearest-pois?lng=${lng}&lat=${lat}`)
+        const response = await fetch(`http://127.0.0.1:5000/gis/nearest-pois?lng=${lng}&lat=${lat}&ip-location=${JSON.stringify(ipLocation, null, 2)}`)
         const data = await response.json()
         console.log("res json", data)
         return data
