@@ -17,8 +17,6 @@ import { MapContainer, Marker, Popup, TileLayer, Polyline } from "react-leaflet"
 
 import L from 'leaflet';
 
-import { useLocation } from '@/lib/location.context'; // 路径根据你的结构调整
-
 
 // 自定义图标
 const centerIcon = L.icon({
@@ -37,9 +35,6 @@ const CustomMap = async () => {
 
     const centerMarkerRef = useRef(null);
 
-    const { locationData } = useLocation();
-
-
     useEffect(() => {
         // 设置延时
         const timer = setTimeout(() => {
@@ -57,7 +52,7 @@ const CustomMap = async () => {
 
     const fetchPois = async (centerLng, centerLat) => {
         try {
-            const resultJson = await getNearPois(centerLng, centerLat, locationData);
+            const resultJson = await getNearPois(centerLng, centerLat);
             console.log(resultJson)
             setResJson(resultJson)
         } catch (error) {
@@ -90,14 +85,6 @@ const CustomMap = async () => {
             {
                 location ? <div className={styles.resultContainer}>
                     <div className={styles.textContainer}>
-                        {locationData ? (
-                            <div>
-                                <h1>Your Location Data:</h1>
-                                <pre>{JSON.stringify(locationData, null, 2)}</pre>
-                            </div>
-                        ) : (
-                            <p>Loading location data...</p>
-                        )}
                         <h1>Your current longitude and latitude coordinates are</h1>
                         <h2 className={styles.resultText}>({location.lng}, {location.lat})</h2>
                     </div>

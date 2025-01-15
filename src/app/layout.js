@@ -10,8 +10,6 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 
 import { ProxyAgent, setGlobalDispatcher } from "undici";
 
-import { LocationProvider } from '@/lib/location.context'; // 路径根据你的结构调整
-
 
 if (process.env.http_proxy) {
   const dispatcher = new ProxyAgent({ uri: new URL(process.env.http_proxy).toString() });
@@ -39,7 +37,7 @@ export default function RootLayout({ children }) {
         <div className='container'>
           <Navbar />
 
-          <LocationProvider>{children}</LocationProvider>
+          {children}
 
           <Footer />
         </div>
