@@ -2,6 +2,8 @@ import Link from 'next/link';
 import styles from './home.module.css'
 import Image from 'next/image';
 
+import SocialShareButtons from '@/components/socialShare/soicalShare'
+
 const Home = () => {
   return <div className={styles.container}>
     <div className={styles.textContainer}>
@@ -15,7 +17,8 @@ const Home = () => {
         <Link className={styles.button} href='/nearby'>Try Now</Link>
       </div>
       <div className={styles.brands}>
-        <Image src="/brands.png" alt="" fill className={styles.brandImg}/>
+        <SocialShareButtons/>
+        {/* <Image src="/brands.png" alt="" fill className={styles.brandImg}/> */}
       </div>
     </div>
     <div className={styles.imgContainer}>
