@@ -5,6 +5,9 @@ import PostUser from '@/components/postUser/PostUser'
 import { Suspense } from 'react'
 import { getPost } from '@/lib/data'
 
+import { notFound } from 'next/navigation'
+
+
 const getData = async (slug) => {
     // const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${slug}`)
 
@@ -23,6 +26,10 @@ export const generateMetadata = async ({ params }) => {
 
     const post = await getPost(slug);
 
+    if (!post) {
+        notFound()
+    }
+
     return {
         title: post.title,
         description: post.desc,
@@ -39,7 +46,7 @@ const SinglePostPage = async ({ params }) => {
     return (
         <div className={styles.container}>
             {
-                post.img && <div className={styles.imgContainer}>
+                post?.img && <div className={styles.imgContainer}>
                     <Image src={post.img} alt="post detail image" className={styles.img} fill></Image>
                 </div>
             }
@@ -57,12 +64,12 @@ const SinglePostPage = async ({ params }) => {
 
                     <div className={styles.detailText}>
                         <span className={styles.detailTitle}>Published</span>
-                        <span className={styles.detailValue}>{post.createdAt.toString().slice(0, 16)}</span>
+                        <span className={styles.detailValue}>{post?.createdAt.toString().slice(0, 16)}</span>
                     </div>
                 </div>
                 <div className={styles.content}>
                     buyixiao is famous for doing some data analysis and visualization, such as SuShi Social RelationShip Chart<br />
-                    {post.desc}
+                    {post?.desc}
                 </div>
             </div>
         </div>
