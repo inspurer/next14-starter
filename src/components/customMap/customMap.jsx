@@ -11,7 +11,7 @@ import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility
 
 import "leaflet-defaulticon-compatibility";
 
-import { getNearPois } from '@/lib/data'
+import { getNearPois } from '@/lib/data.server'
 
 import { MapContainer, Marker, Popup, TileLayer, Polyline } from "react-leaflet";
 
