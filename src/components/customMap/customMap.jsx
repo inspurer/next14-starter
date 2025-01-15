@@ -3,6 +3,8 @@
 import { useState, useEffect, Suspense, useRef } from 'react';
 import styles from "./customMap.module.css"
 
+import Link from 'next/link';
+
 import "leaflet/dist/leaflet.css";
 
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.webpack.css";
@@ -19,8 +21,8 @@ import L from 'leaflet';
 const centerIcon = L.icon({
     iconUrl: 'center-marker.png', // 自定义图标的 URL
     iconSize: [25, 40], // 图标的大小
-    iconAnchor: [18, 40], // 图标将对应标记点的位置
-    popupAnchor: [-12, -36] // 弹出框的锚点
+    iconAnchor: [12, 40], // 图标将对应标记点的位置
+    popupAnchor: [0, -36] // 弹出框的锚点
 });
 
 
@@ -82,7 +84,7 @@ const CustomMap = async () => {
             {
                 location ? <div className={styles.resultContainer}>
                     <div className={styles.textContainer}>
-                        <h1>Your current latitude and longitude coordinates are</h1>
+                        <h1>Your current longitude and latitude coordinates are</h1>
                         <h2 className={styles.resultText}>({location.lng}, {location.lat})</h2>
                     </div>
                     {
@@ -112,12 +114,12 @@ const CustomMap = async () => {
                                     {resJson.items.map((item, index) => (
                                         <Marker key={index} position={[item.lat, item.lng]}>
                                             <Popup>
-                                                {item.poi_name} is {item.distance} meters away from you.
+                                                <Link href={`https://www.google.com/search?q=${item.poi_name}`} target="_blank" className={styles.resultText}>{item.poi_name}</Link> is <span className={styles.resultText}>{item.distance}</span> meters away from you.
                                             </Popup>
                                         </Marker>
 
 
-                                    ))}
+                                    ))}Link
 
                                     {resJson.items.map((item, index) => (
                                         <Polyline positions={[[resJson.lat, resJson.lng], [item.lat, item.lng]]} color="blue"

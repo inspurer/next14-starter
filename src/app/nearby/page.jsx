@@ -5,7 +5,12 @@ import styles from './nearby.module.css'
 
 const MyCustomMap = dynamic(() => import("@/components/customMap/customMap"), { ssr: false })
 
-const NearbyPage =  () => {
+export const metadata = {
+    title: "Chinese Food & Restaurant Nearby",
+    description: "find Chinese food & restaurant just around you, no matter where are you"
+}
+
+const NearbyPage = () => {
 
     return (
         <div className={styles.container}>
