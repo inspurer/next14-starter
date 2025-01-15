@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^15.1.4",
     "aws4": "^1.13.2",
     "bcryptjs": "^2.4.3",
     "install": "^0.13.0",

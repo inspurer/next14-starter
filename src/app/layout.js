@@ -5,6 +5,9 @@ import Footer from '@/components/footer/Footer';
 
 const inter = Inter({ subsets: ['latin'] })
 
+import { GoogleAnalytics } from '@next/third-parties/google'
+
+
 import { ProxyAgent, setGlobalDispatcher } from "undici";
 
 if (process.env.http_proxy) {
@@ -36,6 +39,7 @@ export default function RootLayout({ children }) {
           <Footer />
         </div>
       </body>
+      <GoogleAnalytics gaId="G-CND48ZGFZJ" />
     </html>
   )
 }
